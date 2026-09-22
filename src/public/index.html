@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NoteVault — your personal notes and journal app. Capture thoughts, ideas, and memories." />
+  <title>NoteVault — Personal Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Header ───────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header__inner">
+      <div class="logo">
+        <span class="logo__icon">📔</span>
+        <span class="logo__text">NoteVault</span>
+      </div>
+      <div class="header__actions">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input
+            id="search-input"
+            type="search"
+            class="search-input"
+            placeholder="Search notes…"
+            aria-label="Search notes"
+          />
+        </div>
+        <button id="new-note-btn" class="btn btn--primary" aria-label="Create new note">
+          <span>+</span> New Note
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main Layout ──────────────────────────────────────── -->
+  <main class="layout">
+
+    <!-- Sidebar / notes list -->
+    <aside class="sidebar" aria-label="Notes list">
+      <div class="sidebar__header">
+        <h1 class="sidebar__title">My Notes</h1>
+        <span id="notes-count" class="badge">0</span>
+      </div>
+      <ul id="notes-list" class="notes-list" role="list" aria-label="Notes">
+        <!-- Populated by JS -->
+      </ul>
+      <div id="empty-state" class="empty-state" hidden>
+        <span class="empty-state__icon">✨</span>
+        <p>No notes yet.<br />Hit <strong>+ New Note</strong> to get started.</p>
+      </div>
+    </aside>
+
+    <!-- Editor panel -->
+    <section class="editor-panel" id="editor-panel" aria-label="Note editor">
+      <div id="editor-placeholder" class="editor-placeholder">
+        <span class="editor-placeholder__icon">📝</span>
+        <p>Select a note to read it,<br />or create a new one.</p>
+      </div>
+
+      <div id="editor-form" class="editor-form" hidden>
+        <div class="editor-form__toolbar">
+          <button id="save-btn" class="btn btn--primary btn--sm" aria-label="Save note">💾 Save</button>
+          <button id="delete-btn" class="btn btn--danger btn--sm" aria-label="Delete note" hidden>🗑 Delete</button>
+          <button id="cancel-btn" class="btn btn--ghost btn--sm" aria-label="Cancel editing">Cancel</button>
+        </div>
+        <input
+          id="note-title"
+          type="text"
+          class="editor-title"
+          placeholder="Note title…"
+          maxlength="255"
+          aria-label="Note title"
+        />
+        <textarea
+          id="note-body"
+          class="editor-body"
+          placeholder="Write your thoughts here…"
+          aria-label="Note body"
+        ></textarea>
+        <p id="editor-meta" class="editor-meta"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Toast notification ───────────────────────────────── -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

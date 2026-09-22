@@ -1,0 +1,37 @@
+services:
+  # ── PostgreSQL Database ──────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: nodevault_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       nodevault
+      POSTGRES_USER:     nodevault_user
+      POSTGRES_PASSWORD: nodevault_pass
+    volumes:
+      # Named volume ensures data survives container restarts
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nodevault_user -d nodevault"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ── NoteVault Application ────────────────────────────────────
+  app:
+    build: .
+    container_name: nodevault_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT:         3000
+      DATABASE_URL: postgres://nodevault_user:nodevault_pass@db:5432/nodevault
+    depends_on:
+      db:
+        condition: service_healthy
+
+# ── Named Volumes ────────────────────────────────────────────
+volumes:
+  pgdata:
+    driver: local

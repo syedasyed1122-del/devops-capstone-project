@@ -1,0 +1,6 @@
+terraform/
+docker-compose.yml
+docker-compose.override.yml
+Dockerfile
+.github/
+CONTRIBUTING.md
